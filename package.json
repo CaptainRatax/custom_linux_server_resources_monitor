@@ -18,7 +18,9 @@
     "homepage": "https://github.com/CaptainRatax/custom_linux_server_resources_monitor#readme",
     "dependencies": {
         "express": "^4.17.3",
+        "node-os-utils": "^1.3.6",
         "nodemon": "^2.0.15",
+        "os-utils": "^0.0.14",
         "yarn": "^1.22.18"
     }
 }
