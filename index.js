@@ -1,17 +1,30 @@
 var os = require("os");
 var os = require("os-utils");
+var express = require("express");
+var app = express();
+require("dotenv").config();
 
-console.log("Total RAM: " + Math.trunc(os.totalmem()) + " Mb");
+var cpuInfo = require("./routes/cpu");
+var ramInfo = require("./routes/ram");
+var diskInfo = require("./routes/disk");
 
-var osu = require("node-os-utils");
+var server = app.listen(process.env.PORT, () => {
+    console.log("O server está à escuta na porta", server.address().port);
+});
 
-var cpu = osu.cpu;
+//CPU Info
 
-var refreshCpuUsage = setInterval(function() {
-    cpu.usage().then((cpuUsagePercentage) => {
-        console.log("CPU Usage: " + cpuUsagePercentage + " %");
-    });
-}, 1000);
+app.use("/cpu", cpuInfo);
+
+//RAM Info
+
+app.use("/ram", ramInfo);
+
+//Disk Info
+
+app.use("/disk", diskInfo);
+
+/* console.log("Total RAM: " + Math.trunc(os.totalmem()) + " Mb");
 
 var refreshFreeMemory = setInterval(function() {
     console.log("Free RAM: " + Math.trunc(os.freemem()) + " Mb");
@@ -26,4 +39,4 @@ setTimeout(function() {
     clearInterval(refreshFreeMemory);
     clearInterval(refreshUsedMemory);
     clearInterval(refreshCpuUsage);
-}, 5000);
+}, 5000); */
